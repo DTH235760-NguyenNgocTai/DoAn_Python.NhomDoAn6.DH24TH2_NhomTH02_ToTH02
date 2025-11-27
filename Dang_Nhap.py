@@ -11,6 +11,9 @@ class DangNhap(tk.Toplevel):
         self.window_width = 400
         self.window_height = 200
 
+        self.transient(parent)
+        self.grab_set()
+
         # Căn giữa màn hình
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()

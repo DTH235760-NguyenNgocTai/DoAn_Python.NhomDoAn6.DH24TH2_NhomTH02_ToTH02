@@ -12,6 +12,8 @@ class DatPhong(tk.Toplevel):
         self.title("ĐẶT PHÒNG")
         self.window_width = 900
         self.window_height = 600
+        self.transient(parent)
+        self.grab_set()
 
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()

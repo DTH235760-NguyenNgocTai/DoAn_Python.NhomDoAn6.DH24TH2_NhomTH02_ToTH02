@@ -8,6 +8,9 @@ class Service_Manage(tk.Toplevel):
         self.parent = parent
         self.title("QUẢN LÝ DỊCH VỤ")
 
+        self.transient(parent)
+        self.grab_set()
+
         # Đánh dấu thao tác (1 = thêm, 2 = sửa)
         self.thaotac = 0
 

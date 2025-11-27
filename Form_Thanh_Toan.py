@@ -13,8 +13,11 @@ class ThanhToan(tk.Toplevel):
         self.madp = madp 
         self.title("THANH TOÁN")
         # Kích thước form
-        window_width = 900
+        window_width = 710
         window_height = 600
+
+        self.transient(parent)
+        self.grab_set()
 
         # Lấy kích thước màn hình
         screen_width = self.winfo_screenwidth()
@@ -301,7 +304,7 @@ class ThanhToan(tk.Toplevel):
         title_label = tk.Label(self, text="THANH TOÁN",
                                font=("Arial", 20, "bold"),
                                fg="#FFAA78", bg="Black")
-        title_label.place(x=450, y=5, anchor="n", width=700, height=40)
+        title_label.place(relx = 0.5, y=5, anchor="n", width=700, height=40)
 
         # ----------------------------- Thông tin Thanh toán -----------------------------
         self.group_thongtin = tk.LabelFrame(self, text="Thông tin thanh toán",

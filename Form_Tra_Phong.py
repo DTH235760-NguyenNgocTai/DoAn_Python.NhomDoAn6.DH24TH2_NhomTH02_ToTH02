@@ -11,6 +11,9 @@ class TraPhong(tk.Toplevel):
         self.parent = parent
         self.title("TRẢ PHÒNG")
 
+        self.transient(parent)
+        self.grab_set()
+
         # =================== Thiết lập kích thước và vị trí ===================
         self.window_width = 900
         self.window_height = 600

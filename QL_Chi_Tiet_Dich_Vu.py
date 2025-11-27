@@ -8,8 +8,11 @@ class ServiceDetail_Manage(tk.Toplevel):
         self.parent = parent
         self.title("QUẢN LÝ CHI TIẾT DỊCH VỤ")
         # Kích thước form
-        window_width = 900
+        window_width = 650
         window_height = 600
+
+        self.transient(parent)
+        self.grab_set()
 
         # Lấy kích thước màn hình
         screen_width = self.winfo_screenwidth()
@@ -172,7 +175,7 @@ class ServiceDetail_Manage(tk.Toplevel):
                                font=("Arial", 20, "bold"),
                                fg="#FFAA78",
                                bg="Black")
-        title_label.place(x=450, y=5, anchor="n", width=700, height=40)
+        title_label.place(relx = 0.5, y=5, anchor="n", width=700, height=40)
 
         # ----------------------------- Thông tin dịch vụ (Chứa trong Frame) -----------------------------
         group = tk.LabelFrame(self, text="Thông tin dịch vụ", font=("Arial", 10),

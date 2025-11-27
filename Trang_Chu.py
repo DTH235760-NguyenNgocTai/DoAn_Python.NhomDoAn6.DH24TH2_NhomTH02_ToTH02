@@ -29,14 +29,12 @@ class TrangChu(tk.Tk):
             self.destroy()
 
     def DatPhong_Click(self):
-        DatPhong(self).grab_set()
-
+        DatPhong(self)
     def TraPhong_Click(self):
-        TraPhong(self).grab_set()
+        TraPhong(self)
 
     def Sign_in_Click(self):  # Ẩn TrangChu khi mở login
         login = DangNhap(self)
-        login.grab_set()
 
     def TaoGiaoDien(self):
         # Background

@@ -9,6 +9,9 @@ class Customer_Manage(tk.Toplevel):
         self.parent = parent
         self.title("QUẢN LÝ KHÁCH HÀNG")
 
+        self.transient(parent)
+        self.grab_set()
+
         # Đánh dấu thao tác Thêm = 1, Sửa = 2
         self.thaotac = 0
 

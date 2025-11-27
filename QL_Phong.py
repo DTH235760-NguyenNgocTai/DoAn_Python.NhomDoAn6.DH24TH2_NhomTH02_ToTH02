@@ -9,6 +9,9 @@ class Room_Manage(tk.Toplevel):
         self.thaotac = 0       # Đánh dấu thao tác Thêm = 1 && Sửa = 2
         self.title("QUẢN LÝ PHÒNG")
 
+        self.transient(parent)
+        self.grab_set()
+
         self.window_width = 900
         self.window_height = 600
 

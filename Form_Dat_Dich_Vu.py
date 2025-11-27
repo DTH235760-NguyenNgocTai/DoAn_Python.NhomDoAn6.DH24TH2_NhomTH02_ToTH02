@@ -9,6 +9,9 @@ class DatDichVu(tk.Toplevel):
         self.parent = parent
         self.madp = madp # Lưu giá trị mã đặt phòng truyền từ form đặt phòng
 
+        self.transient(parent)
+        self.grab_set()
+
         self.title("ĐẶT DỊCH VỤ")
         self.window_width = 900
         self.window_height = 600

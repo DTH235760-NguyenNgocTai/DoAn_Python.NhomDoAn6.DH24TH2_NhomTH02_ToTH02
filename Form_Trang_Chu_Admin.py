@@ -15,6 +15,10 @@ class FormTrangChuAdmin(tk.Toplevel):
         self.title("TRANG CHỦ _ ADMIN")
         self.window_width = 900
         self.window_height = 600
+
+        self.transient(parent)
+        self.grab_set()
+        
         self.center_window(self.window_width, self.window_height)
         self.resizable(False, False)
 

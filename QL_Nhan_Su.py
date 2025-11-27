@@ -12,6 +12,9 @@ class Staff_Manage(tk.Toplevel):
         self.title("QUẢN LÝ NHÂN SỰ")
         self.configure(bg="#000000")
 
+        self.transient(parent)
+        self.grab_set()
+
         # Kích thước form
         window_width = 900
         window_height = 600
