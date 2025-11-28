@@ -281,18 +281,19 @@ class Customer_Manage(tk.Toplevel):
             if self.Check_TrungMaKH(makh):
                 messagebox.showerror("Lỗi", "Mã khách hàng đã tồn tại trong hệ thống!")
                 return
+            if self.Check_TrungSdt(sdt):
+                messagebox.showerror("Lỗi", "Số điện thoại đã tồn tại trong hệ thống!")
+                return
+            if self.Check_TrungCccd(cccd):
+                messagebox.showerror("Lỗi", "CCCD đã tồn tại trong hệ thống!")
+                return
         if not self.Check_Sdt(sdt):
             messagebox.showerror("Lỗi", "Số điện thoại phải là số và có đúng 10 chữ số!")
-            return
-        if self.Check_TrungSdt(sdt):
-            messagebox.showerror("Lỗi", "Số điện thoại đã tồn tại trong hệ thống!")
             return
         if not self.Check_Cccd(cccd):
             messagebox.showerror("Lỗi", "CCCD phải là số và có đúng 12 chữ số!")
             return
-        if self.Check_TrungCccd(cccd):
-            messagebox.showerror("Lỗi", "CCCD đã tồn tại trong hệ thống!")
-            return
+        
         
         conn = self.connect_database()
         cursor = conn.cursor()

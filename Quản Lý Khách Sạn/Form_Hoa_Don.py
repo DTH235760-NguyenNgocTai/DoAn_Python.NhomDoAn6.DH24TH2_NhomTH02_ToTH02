@@ -103,8 +103,9 @@ class HoaDon(tk.Toplevel):
         )
         self.title_label.place(x=350, y=10, anchor="n")
 
-        tk.Label(self, text="Ngày……tháng……năm……",
-                 font=("Arial", 10), bg="white").place(x=530, y=15)
+        # tk.Label(self, text="Ngày……tháng……năm……",
+        #          font=("Arial", 10), bg="white").place(x=530, y=15)
+        
 
         # ==== THÔNG TIN KHÁCH HÀNG ====
         tk.Label(self, text="Tên khách hàng", font=("Arial", 10),

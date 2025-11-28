@@ -45,36 +45,65 @@ class DatPhong(tk.Toplevel):
             return None
 
     # ============================= Load dữ liệu bảng Phòng & Đặt Phòng =============================
+    def Dinhdangtien(value):
+        return f"{value:,.0f} đ".replace(",", ".")
+    
     def Load_Database_Phong(self):
         conn = self.connect_database()
         if conn is None:
             return
+    
         cursor = conn.cursor()
         cursor.execute('''SELECT MaPhong, LoaiPhong, TrangThai, GiaTien 
-                          FROM Phong
-                          WHERE TrangThai = ?''',("Trống",))   # Chỉ lấy những phòng còn trống
+                      FROM Phong
+                      WHERE TrangThai = ?''', ("Trống",))
         rows = cursor.fetchall()
+
+    # Xóa dữ liệu cũ
         for i in self.phong.get_children():
             self.phong.delete(i)
-        for row in rows:
-            clean_row = [str(col).replace("(", "").replace(")", "").replace("'", "") for col in row]
-            self.phong.insert("", tk.END, values = clean_row)
-        conn.close() 
 
+    # Thêm dữ liệu mới
+        for row in rows:
+            ma, loai, trangthai, giatien = row
+        
+        # Format tiền tệ
+            giatien_fmt = f"{giatien:,.0f} ₫".replace(",", ".")
+
+            clean_row = [ma, loai, trangthai, giatien_fmt]
+
+            self.phong.insert("", tk.END, values=clean_row)
+
+        conn.close()
+    
+    # =================== Load dữ liệu Đặt Phòng ===================
     def Load_Database_DatPhong(self):
         conn = self.connect_database()
         if conn is None:
             return
-        cursor = conn.cursor()
-        cursor.execute('''SELECT * FROM DatPhong''')
-        rows = cursor.fetchall()
-        for i in self.datphong.get_children():
-            self.datphong.delete(i)
-        for row in rows:
-            clean_row = [str(col).replace("(", "").replace(")", "").replace("'", "") for col in row]
-            self.datphong.insert("", tk.END, values = clean_row)
-        conn.close()
 
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM DatPhong")
+        rows = cursor.fetchall()
+
+        for item in self.datphong.get_children():
+            self.datphong.delete(item)
+
+        for madp, maphong, makh, tenkh, ngaydat, ngaynhan, ngaytra in rows:
+
+            # Format ngày từ datetime → dd/mm/yyyy
+            ngaydat  = ngaydat.strftime("%d/%m/%Y")
+            ngaynhan = ngaynhan.strftime("%d/%m/%Y")
+            ngaytra  = ngaytra.strftime("%d/%m/%Y")
+
+            clean_row = [
+                madp, maphong, makh, tenkh,
+                ngaydat, ngaynhan, ngaytra
+            ]
+
+            self.datphong.insert("", tk.END, values=clean_row)
+
+        conn.close()
     # ================== ĐÓNG FORM ==================
     def on_close(self):
         if messagebox.askyesno("Xác nhận", "Bạn muốn thoát không?"):
@@ -91,7 +120,7 @@ class DatPhong(tk.Toplevel):
     def ClearInput(self):
         self.entry_madp.config(state="normal")  # Luôn đóng (Ko cho nhập)
         self.entry_madp.delete(0, tk.END)
-        self.entry_madp.config(state="disabled")
+        self.entry_madp.config(state="readonly")
 
         self.entry_maphong.config(state="normal")
         self.entry_makh.config(state="normal")
@@ -111,6 +140,19 @@ class DatPhong(tk.Toplevel):
         self.ngaynhan.set_date(datetime.date.today())
         self.ngaytra.set_date(datetime.date.today())
 
+    def convert_date(self, sql_date):
+    # Nếu đã là object datetime.date thì dùng luôn
+        if isinstance(sql_date, datetime.date):
+            return sql_date
+
+        sql_date = str(sql_date).strip()
+
+        # Chuẩn dd/mm/yyyy
+        try:
+            return datetime.datetime.strptime(sql_date, "%d/%m/%Y").date()
+        except:
+            return datetime.date.today()
+        
     def Chon_Dong_Phong(self, event):
         # Lấy dòng đang được chọn
         selected = self.phong.selection()
@@ -154,9 +196,9 @@ class DatPhong(tk.Toplevel):
             self.entry_tenkh.insert(0, item[3])
             self.entry_tenkh.config(state="readonly")
 
-            self.ngaydat.set_date(item[4])
-            self.ngaynhan.set_date(item[5])
-            self.ngaytra.set_date(item[6])
+            self.ngaydat.set_date(self.convert_date(item[4]))
+            self.ngaynhan.set_date(self.convert_date(item[5]))
+            self.ngaytra.set_date(self.convert_date(item[6]))
 
         # ---Kiểm tra Số điện thoại ---
     def Check_Sdt(self, sdt):
@@ -297,10 +339,6 @@ class DatPhong(tk.Toplevel):
             messagebox.showwarning("Thông báo", "Bạn chưa chọn mã đặt phòng!")
             return
         form_ddv = DatDichVu(self, madp)
-        self.withdraw()       # Ẩn form cha
-        form_ddv.grab_set()    # Khóa focus vào form con
-        form_ddv.wait_window()  # ✔ CHUẨN - Đợi form con đóng
-        self.deiconify()       # Hiện lại form cha sau khi form con được destroy()
 
     # ============================= Nhận phòng =============================
     def Nhanphong_Click(self):
@@ -361,7 +399,7 @@ class DatPhong(tk.Toplevel):
 
         # --- Các Entry và Label ---
         tk.Label(self.group, text="Mã đặt phòng", font=("Arial", 10), fg="#FCBD00", bg="#000000").place(x=20, y=5)
-        self.entry_madp = tk.Entry(self.group, state="disabled", font=("Arial", 10))        
+        self.entry_madp = tk.Entry(self.group, state="readonly", font=("Arial", 10))        
         self.entry_madp.place(x=120, y=5, width=160, height=20)
 
         tk.Label(self.group, text="Mã phòng", font=("Arial", 10), fg="#FCBD00", bg="#000000").place(x=20, y=35)

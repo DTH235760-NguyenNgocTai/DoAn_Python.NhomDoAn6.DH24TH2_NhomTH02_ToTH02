@@ -261,6 +261,7 @@ class ThanhToan(tk.Toplevel):
 
         except Exception as e:
             messagebox.showerror("Lỗi", f"Không thể tạo hóa đơn:\n{e}")
+        self.btnChon.config(state = "normal")
 
     # ----------------------------- Đã thanh toán -----------------------------
     def DaThanhToan_Click(self):
@@ -427,7 +428,7 @@ class ThanhToan(tk.Toplevel):
         self.btnThanhtoan.place(x=580, y=70, width=120, height=30)
 
         self.btnDathanhtoan = tk.Button(self, text="Đã thanh toán", font=("Arial", 12),
-                                        fg="white", bg="#001f4d", command = self.DaThanhToan_Click)
+                                        fg="white", bg="#001f4d", state = "disabled", command = self.DaThanhToan_Click)
         self.btnDathanhtoan.place(x=580, y=110, width=120, height=30)
 
         self.btnThoat = tk.Button(self, text="Thoát", font=("Arial", 12),

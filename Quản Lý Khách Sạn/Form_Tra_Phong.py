@@ -270,15 +270,15 @@ class TraPhong(tk.Toplevel):
 
         # --- DateEntry Ngày đặt, nhận, trả ---
         tk.Label(group, text="Ngày đặt", font=("Arial", 10), fg="#FCBD00", bg="#000000").place(x=310, y=5)
-        self.ngaydat = DateEntry(group, date_pattern="dd/mm/yyyy")
+        self.ngaydat = DateEntry(group, date_pattern="yyyy/mm/dd")
         self.ngaydat.place(x=380, y=5, width=160, height=20)
 
         tk.Label(group, text="Ngày nhận", font=("Arial", 10), fg="#FCBD00", bg="#000000").place(x=310, y=35)
-        self.ngaynhan = DateEntry(group, date_pattern="dd/mm/yyyy")
+        self.ngaynhan = DateEntry(group, date_pattern="yyyy/mm/dd")
         self.ngaynhan.place(x=380, y=35, width=160, height=20)
 
         tk.Label(group, text="Ngày trả", font=("Arial", 10), fg="#FCBD00", bg="#000000").place(x=310, y=65)
-        self.ngaytra = DateEntry(group, date_pattern="dd/mm/yyyy")
+        self.ngaytra = DateEntry(group, date_pattern="yyyy/mm/dd")
         self.ngaytra.place(x=380, y=65, width=160, height=20)
 
         # ----------------- Treeview Phòng -----------------

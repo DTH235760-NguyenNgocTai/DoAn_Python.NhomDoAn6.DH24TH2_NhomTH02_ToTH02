@@ -257,12 +257,13 @@ class Staff_Manage(tk.Toplevel):
             if self.Check_TrungMaNV(manv):
                 messagebox.showerror("Lỗi", "Mã nhân viên đã tồn tại trong hệ thống!")
                 return
+            if self.Check_TrungSdt(sdt):
+                messagebox.showerror("Lỗi", "Số điện thoại đã tồn tại trong hệ thống!")
+                return
         if not self.Check_Sdt(sdt):
             messagebox.showerror("Lỗi", "Số điện thoại phải là số và có đúng 10 chữ số!")
             return
-        if self.Check_TrungSdt(sdt):
-            messagebox.showerror("Lỗi", "Số điện thoại đã tồn tại trong hệ thống!")
-            return
+        
 
         conn = self.connect_database()
         cursor = conn.cursor()

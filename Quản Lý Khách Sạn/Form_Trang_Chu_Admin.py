@@ -116,11 +116,11 @@ class FormTrangChuAdmin(tk.Toplevel):
         start_x = 120   # vị trí nút đầu tiên (sau icon user)
         spacing = 115   # khoảng cách nút đều nhau
 
-        btn_phong = tk.Button(top_frame, text="Phòng", bg="#2600FF", fg="white",
+        btn_phong = tk.Button(top_frame, text="Phòng", bg="#246A03", fg="white",
                           font=("Arial", 12, "bold"), command=self.Phong_Click)
         btn_phong.place(x=start_x, rely=0.5, anchor="center", width=button_width, height=30)
 
-        btn_nhansu = tk.Button(top_frame, text="Nhân sự", bg="#2600FF", fg="white",
+        btn_nhansu = tk.Button(top_frame, text="Nhân sự", bg="#246A03", fg="white",
                            font=("Arial", 12, "bold"), command=self.NhanSu_Click)
         btn_nhansu.place(x=start_x + spacing, rely=0.5, anchor="center", width=button_width, height=30)
 
